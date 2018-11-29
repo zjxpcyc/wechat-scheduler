@@ -43,7 +43,7 @@ func (t *Logger) Info(v ...interface{}) {
 
 // Error 级别日志
 func (t *Logger) Error(v ...interface{}) {
-	t.write(LOG_ERR, v)
+	t.write(LOG_ERR, v...)
 }
 
 // write 日志内容到 target.
