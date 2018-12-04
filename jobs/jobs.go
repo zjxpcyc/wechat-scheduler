@@ -6,6 +6,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/zjxpcyc/tinylogger"
 	"github.com/zjxpcyc/wechat-scheduler/database"
 	"github.com/zjxpcyc/wechat-scheduler/lib"
 )
@@ -29,7 +30,7 @@ type Job struct {
 // AllJob 所有注册的 Job
 var AllJob = make(map[string]*Job)
 
-var logger lib.LogService
+var logger tinylogger.LogService
 
 // NewJob 新建一个 Job
 // 如果同一个 appid 多次创建, 那么返回的是同一个 Job

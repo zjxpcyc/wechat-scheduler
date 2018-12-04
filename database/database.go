@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/zjxpcyc/tinylogger"
 	"github.com/zjxpcyc/wechat-scheduler/lib"
 
 	"github.com/tidwall/buntdb"
@@ -13,7 +14,7 @@ import (
 // DBDir 存放数据库文件
 const DBDir = "./database"
 
-var logger lib.LogService
+var logger tinylogger.LogService
 
 // NewDB 初始化数据库引擎
 func NewDB(appid string) (*buntdb.DB, error) {
