@@ -38,6 +38,9 @@ func main() {
 		os.Exit(0)
 	}
 
-	serv := http.Server{Addr: ":" + strconv.Itoa(*port), Handler: newHandler()}
+	addr := ":" + strconv.Itoa(*port)
+	serv := http.Server{Addr: addr, Handler: newHandler()}
+
+	logger.Info("启动成功 http://" + addr)
 	log.Fatalln(serv.ListenAndServe())
 }

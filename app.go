@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strconv"
@@ -18,7 +19,7 @@ type App struct{}
 func (t *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	defer func() {
 		if p := recover(); p != nil {
-			// do nothing
+			return
 		}
 	}()
 
@@ -121,6 +122,8 @@ func (t *Controller) RegisteTasks() {
 
 	// 运行任务
 	job.Run()
+
+	t.ResponseJSON("success")
 }
 
 // GetTaskValue 获取当前任务的值
@@ -182,6 +185,8 @@ func (t *Controller) ResponseJSON(data interface{}, code ...int) {
 		"message": message,
 		"result":  result,
 	}
+
+	logger.Info("请求反馈: ", fmt.Sprintf("%v", mapData))
 
 	rtn, err := json.Marshal(mapData)
 	if err != nil {
