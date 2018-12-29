@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -84,4 +85,25 @@ func Request(api WechatAPI, query url.Values, body io.Reader, result ...interfac
 	}
 
 	return
+}
+
+// CheckJSONResult 校验结果
+func CheckJSONResult(res map[string]interface{}) error {
+	code, ok := res["errcode"]
+	if !ok {
+		return nil
+	}
+
+	switch status := code.(type) {
+	case float64:
+		if int(status) == 0 {
+			return nil
+		}
+	case string:
+		if status == "0" || status == "" {
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%v - %s", code, res["errmsg"])
 }

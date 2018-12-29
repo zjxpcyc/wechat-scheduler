@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/url"
 	"time"
 
@@ -80,8 +79,8 @@ func AuthorizerAccessToken(tk *JobTask) *lib.JobServer {
 			return err
 		}
 
-		if code, ok := res["errcode"]; ok {
-			return fmt.Errorf("%v - %s", code, res["errmsg"])
+		if err := lib.CheckJSONResult(res); err != nil {
+			return err
 		}
 
 		tk.Result = res
